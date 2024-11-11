@@ -60,6 +60,19 @@
                 <i class="fa-solid fa-question"></i>
             </a>
         </div>
+
+        @foreach ($pokemonos as $poke)
+        <div class="card">
+            <img
+                src="images/{{ $poke->id }}.jpg"
+                alt="{{ $poke->nazev }}"
+            >
+            <a href="{{ route('detail') }}">
+                <i class="fa-solid fa-question"></i>
+            </a>
+        </div>
+        @endforeach
+
        </main>
     </body>
 </html>
