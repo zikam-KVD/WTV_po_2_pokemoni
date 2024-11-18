@@ -11,7 +11,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="css/card.css">
+        <link rel="stylesheet" href="{{ asset('css/card.css') }}">
 
         @vite([
             'resources/css/app.css',
@@ -21,20 +21,18 @@
 
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-       <main>
-
-        @foreach ($pokemonos as $poke)
+       <main class="detail">
         <div class="card">
+            <h2> {{ $poke->nazev }} </h2>
             <img
-                src="images/{{ $poke->id }}.jpg"
+                src="{{ asset('images/' . $poke->id . '.jpg') }}"
                 alt="{{ $poke->nazev }}"
             >
-            <a href="{{ route('detail', ['cislo' => $poke->id]) }}">
-                <i class="fa-solid fa-question"></i>
+            <p>{{ $poke->popis }}</p>
+            <a href="{{ route('index') }}">
+                <i class="fa-solid fa-left-long"></i>
             </a>
         </div>
-        @endforeach
-
        </main>
     </body>
 </html>

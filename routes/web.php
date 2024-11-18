@@ -1,14 +1,15 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use App\Models\Pokemon;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $pokemoni = Pokemon::all();
+Route::get(
+    '/',
+    [PageController::class, "ukazIndex"]
+)->name('index');
 
-    return view('welcome', ['pokemonos' => $pokemoni]);
-})->name('index');
-
-Route::get('/pokemon-detail', function(){
-    return view('bulbasaur');
-})->name('detail');
+Route::get(
+    '/pokemon-detail/{cislo}',
+    [PageController::class, 'ukazDetail']
+)->name('detail');

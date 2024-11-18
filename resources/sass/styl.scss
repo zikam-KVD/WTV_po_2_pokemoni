@@ -1,0 +1,33 @@
+$pozadi: blue;
+
+
+body {
+    background-color: $pozadi;
+
+    main.detail {
+
+        div.card {
+
+            max-width: 300px;
+            text-align: center;
+
+            img {
+                filter: none;
+                animation: none;
+            }
+
+            h2 {
+                font-size: 30px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            p {
+                margin-top: 15px;
+                font-size: .9rem;
+            }
+        }
+    }
+
+
+}
