@@ -1,4 +1,4 @@
-$pozadi: blue;
+$pozadi: rgba(128, 128, 128, 0.568);
 
 
 body {
@@ -26,7 +26,34 @@ body {
                 margin-top: 15px;
                 font-size: .9rem;
             }
+
+            .typy {
+                margin-top: 10px;
+
+                a {
+                    position: relative;
+                }
+
+                span {
+                    color: White;
+                    padding: 5px 15px;
+                    border-radius: 5px;
+                }
+            }
+
+            /*
+            TODO:
+                vypsat, jaky druh pokemona to je
+                vypisovani vice pokemonu dle typu
+                JetStream
+            */
         }
+    }
+
+    main#typy {
+        display: block;
+        margin-top: 15px;
+        text-align: center;
     }
 
 

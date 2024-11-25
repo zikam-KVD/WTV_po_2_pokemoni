@@ -21,25 +21,24 @@
 
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-       <main class="detail">
-        <div class="card">
-            <h2> {{ $poke->nazev }} </h2>
-            <img
-                src="{{ asset('images/' . $poke->id . '.jpg') }}"
-                alt="{{ $poke->nazev }}"
-            >
-            <div class="typy">
-                <a href="{{ route('typy', ['typ' => $poke->druh]) }}">
-                <span style="background: {{ $poke->typ->barva }}">
-                    {{ $poke->typ->nazev }}
-                </span>
+       <main id="typy">
+
+        @if(count($pokemonos) == 0)
+            <p>Tenhle typ existuje, ale nenašel jsem žádného pokémona.</p>
+        @else
+            @foreach ($pokemonos as $poke)
+            <div class="card">
+                <img
+                    src="{{ asset('images/' . $poke->id . '.jpg') }}"
+                    alt="{{ $poke->nazev }}"
+                >
+                <a href="{{ route('detail', ['cislo' => $poke->id]) }}">
+                    <i class="fa-solid fa-question"></i>
                 </a>
             </div>
-            <p>{{ $poke->popis }}</p>
-            <a href="{{ route('index') }}">
-                <i class="fa-solid fa-left-long"></i>
-            </a>
-        </div>
+            @endforeach
+        @endif
+
        </main>
     </body>
 </html>

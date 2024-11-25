@@ -13,3 +13,8 @@ Route::get(
     '/pokemon-detail/{cislo}',
     [PageController::class, 'ukazDetail']
 )->name('detail');
+
+Route::get(
+    '/pokemon-podle-typu/{typ}',
+    [PageController::class, 'ukazTyp']
+)->name('typy');

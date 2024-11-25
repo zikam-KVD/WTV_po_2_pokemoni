@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pokemon;
+use App\Models\Typ;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -28,6 +29,20 @@ class PageController extends Controller
             return abort(404);
         }
 
-        return view('detail', ['poke' => $pokemon]);
+        //$typ = Typ::find($pokemon->druh);
+
+    return view('detail', ['poke' => $pokemon/*, 'typ' => $typ*/]);
+    }
+
+    public function ukazTyp(int $typ)
+    {
+        $typ = Typ::find($typ);
+
+        if($typ == null)
+        {
+            abort(404);
+        }
+
+        return view('typy', ['pokemonos' => $typ->pokemons]);
     }
 }
