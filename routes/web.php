@@ -22,3 +22,14 @@ Route::get(
     '/pokemon-podle-typu/{typ}',
     [PageController::class, 'ukazTyp']
 )->name('typy');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+});
