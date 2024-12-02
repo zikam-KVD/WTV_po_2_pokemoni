@@ -4,6 +4,10 @@ use App\Http\Controllers\PageController;
 use App\Models\Pokemon;
 use Illuminate\Support\Facades\Route;
 
+//TODO:
+//JetStream
+//POST routy
+
 Route::get(
     '/',
     [PageController::class, "ukazIndex"]
