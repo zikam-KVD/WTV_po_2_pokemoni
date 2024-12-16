@@ -20,9 +20,32 @@
     </section>
 
     <section class="section--white">
-        <form action="{{ route('pridejPokemona')}}" method="POST">
+        <form action="{{ route('pridejPokemona')}}" method="POST" enctype="multipart/form-data">
             @csrf
-
+            <div>
+                <x-label for="nazev" value="Název pokémona" />
+                <x-input name="pokemon-nazev" id="nazev" required />
+                <x-input-error for="pokemon-nazev" />
+            </div>
+            <div>
+                <x-label for="popis" value="Popis pokémona" />
+                <x-input name="pokemon-popis" id="popis" required />
+                <x-input-error for="pokemon-popis" />
+            </div>
+            <div>
+                <x-label for="druh" value="Druh pokémona" />
+                <select name="pokemon-druh" id="druh">
+                    @foreach ($tipy as $typ)
+                        <option value="{{ $typ->id }}">{{ $typ->nazev }}</option>
+                    @endforeach
+                </select>
+                <x-input-error for="pokemon-druh" />
+            </div>
+            <div>
+                <x-label for="obrazek" value="Obrázek pokémona" />
+                <x-input type="file" name="pokemon-obrazek" id="obrazek" required />
+                <x-input-error for="pokemon-obrazek" />
+            </div>
             <div>
                 <x-button>Potvrď</x-button>
             </div>
@@ -42,7 +65,12 @@
                 <td>{{ $typ->nazev }}</td>
                 <td style="background: {{ $typ->barva }}">{{ $typ->barva }}</td>
                 <td>{{ count($typ->pokemons) }}</td>
-                <td> mažu/edituji </td>
+                <td>
+                    <form action="{{ route('smazTyp', ['id' => $typ->id])  }}" method="post">
+                        @csrf
+                        <x-button>Smaž mě</x-button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </table>

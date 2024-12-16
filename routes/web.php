@@ -40,9 +40,14 @@ Route::middleware([
     //routa pridavajici typ do DB
     Route::post('/pridej', [PageController::class, 'pridejTyp'])->name('pridejTyp');
 
-    //TODO: dodelat priste upload obrazku pokemona
+    //vytvari noveho pokemona i s obrazkem
     Route::post(
         '/pridej-pokemona',
         [PageController::class, 'pridejPokemona']
     )->name('pridejPokemona');
+
+    Route::post(
+        'typ/smaz/{id}',
+        [PageController::class, 'smazTyp']
+    )->name('smazTyp');
 });

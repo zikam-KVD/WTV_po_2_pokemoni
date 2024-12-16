@@ -57,7 +57,7 @@ class PageController extends Controller
 
         return view('admin-typy', ['tipy' => $typy]);
     }
-
+    //zajistuje pridani noveho typu do DB pomoci formulare
     public function pridejTyp(Request $request)
     {
         try{
@@ -76,5 +76,48 @@ class PageController extends Controller
             return back()->with("message", "Chyba: " . $e->getMessage());
         }
 
+    }
+    //pridava pokemona s obrazkem
+    public function pridejPokemona(Request $req)
+    {
+        $val = $req->validate([
+            'pokemon-nazev' => 'required|min:3|max:20|unique:pokemons,nazev',
+            'pokemon-popis' => 'required|min:3|max:64',
+            'pokemon-druh' => 'required|exists:types,id',
+            'pokemon-obrazek' => 'required|extensions:jpg,png',
+        ]);
+
+        $obr = $req->file('pokemon-obrazek');
+
+        $newPoke = Pokemon::create([
+            "nazev" => $val['pokemon-nazev'],
+            "druh" => $val['pokemon-druh'],
+            "popis" => $val['pokemon-popis'],
+        ]);
+        $newPoke->save();
+        //$newPoke->id; //pomoci ->save() se dostaneme lehci cestou k id
+        $posledniPokemon = Pokemon::latest()->orderBy('id', 'DESC')->first();
+        $obrNazev = $posledniPokemon->id . "." . $obr->getClientOriginalExtension();
+        $obr->move(public_path('images'), $obrNazev);
+
+        return back()->with("message", "Vytvořen pokémon " . $val['pokemon-nazev'] . ".");
+    }
+
+    //maze nam typ podle ID
+    public function smazTyp(int $id)
+    {
+        $typ = Typ::find($id);
+
+        if($typ !== null) {
+
+            foreach($typ->pokemons as $pokemon) {
+                $pokemon->delete();
+            }
+
+            $typ->delete();
+            return back()->with("message", "Smazal jsi typ.");
+        } else {
+            return back()->with("message", "Typ jsem nenašel.");
+        }
     }
 }
