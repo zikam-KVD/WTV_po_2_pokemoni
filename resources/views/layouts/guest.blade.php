@@ -31,6 +31,7 @@
         @guest
             @include('layouts/includes/nav')
         @endguest
+
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>

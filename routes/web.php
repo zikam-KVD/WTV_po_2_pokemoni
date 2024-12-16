@@ -28,8 +28,21 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    
+    //vypis typu
+    Route::get(
+        '/vypis-typy',
+        [PageController::class, 'adminVypisTypy'])->name('admin-typy');
+
+    //routa pridavajici typ do DB
+    Route::post('/pridej', [PageController::class, 'pridejTyp'])->name('pridejTyp');
+
+    //TODO: dodelat priste upload obrazku pokemona
+    Route::post(
+        '/pridej-pokemona',
+        [PageController::class, 'pridejPokemona']
+    )->name('pridejPokemona');
 });

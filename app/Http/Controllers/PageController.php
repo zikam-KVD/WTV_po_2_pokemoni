@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pokemon;
 use App\Models\Typ;
+use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Throw_;
 
 class PageController extends Controller
 {
@@ -44,5 +46,35 @@ class PageController extends Controller
         }
 
         return view('typy', ['pokemonos' => $typ->pokemons]);
+    }
+
+    /**
+     * Zobrazeni tpyu prihlasenemu uzivateli.
+     */
+    public function adminVypisTypy()
+    {
+        $typy = Typ::all();
+
+        return view('admin-typy', ['tipy' => $typy]);
+    }
+
+    public function pridejTyp(Request $request)
+    {
+        try{
+            $valided = $request->validate([
+                'typ-nazev' => 'required|min:3|max:50|unique:types,nazev',
+                'typ-barva' => 'required|hex_color'
+            ]);
+
+            Typ::insert([
+                "nazev" => $valided["typ-nazev"],
+                "barva" => $request["typ-barva"]
+            ]);
+
+            return back()->with("message", "Jupí, přidal jsi typ: " . $valided["typ-nazev"]);
+        } catch(Exception $e) {
+            return back()->with("message", "Chyba: " . $e->getMessage());
+        }
+
     }
 }
